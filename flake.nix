@@ -11,8 +11,35 @@
       forAllSystems = lib.genAttrs systems;
       spkgs = system: nixpkgs.legacyPackages.${system}.pkgs;
     in {
-      packages = forAllSystems (s: with spkgs s; {
+      packages = forAllSystems (s: with spkgs s; rec {
+        page = stdenv.mkDerivation (finalAttrs: {
+          pname = "astro-page";
+          version = "000-0";
 
+          src = ./.;
+
+          nativeBuildInputs = [
+            nodejs
+            pnpm.configHook
+          ];
+
+          pnpmDeps = pnpm.fetchDeps {
+            inherit (finalAttrs) pname version src;
+            hash = "sha256-EVe7VoGJgNyp4cyScl2P+VUddkOxiYTF7VGnlDoL3SU=";
+          };
+
+          buildPhase = ''
+            pnpm install
+            pnpm build
+          '';
+
+          installPhase = ''
+            mkdir -p $out
+            cp -r dist/* $out
+          '';
+
+        });
+        default = page;
       });
 
       devShells = forAllSystems (s: with spkgs s; {
