@@ -3,13 +3,18 @@ import '../styles/global.css';
 
 const currentPath = Astro.url.pathname;
 
+// TODO: dynamic
+// const pages = Object.values(import.meta.glob('../pages/**.astro', { eager: true }));
+// const links = pages.map((page: any) => {console.log({url:page.url, file: page.file})}).flat()
+
 const links = [
   { href: "/", text: "Willkommen" },
   { href: "/contact", text: "Kontakt" },
   { href: "/team", text: "Das Team" },
   { href: "/services", text: "Leistungen" },
   { href: "/impress", text: "Impressum" },
-].map((link) => {
+]
+.map((link) => {
   const isActive = currentPath === link.href;
   return { ...link, isActive };
 });
@@ -82,7 +87,13 @@ button {
     }
 
     ul:not(.open) li:not(.active) {
-        display: none;
+        /* display: none; */
+        height: 0;
+        padding: 0;
+        margin: 0;
+        border: none;
+        clip: auto;
+        opacity: 0;
     }
     
     nav:has(ul.open) {
