@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 const currentPath = Astro.url.pathname;
 
@@ -13,8 +13,7 @@ const links = [
   { href: "/team", text: "Das Team" },
   { href: "/services", text: "Leistungen" },
   { href: "/impress", text: "Impressum" },
-]
-.map((link) => {
+].map((link) => {
   const isActive = currentPath === link.href;
   return { ...link, isActive };
 });
@@ -34,23 +33,22 @@ const links = [
       ))
     }
   </ul>
-  <button aria-label="Toggle Menu" >☰</button>
+  <button aria-label="Toggle Menu">☰</button>
 </nav>
 
 <script>
-    const nav = document.querySelector('nav')!;
-    const button = nav.querySelector('button')!;
-    const ul = nav.querySelector('ul')!;
-    
-    button.addEventListener('click', () => {
-        ul.classList.toggle('open');
-        button.innerHTML = ul.classList.contains('open') ? '✖' : '☰';
-    });
+  const nav = document.querySelector("nav")!;
+  const button = nav.querySelector("button")!;
+  const ul = nav.querySelector("ul")!;
+
+  button.addEventListener("click", () => {
+    ul.classList.toggle("open");
+    button.innerHTML = ul.classList.contains("open") ? "✖" : "☰";
+  });
 </script>
 
-
 <style>
-nav {
+  nav {
     background-color: var(--primary-container);
     color: var(--on-primary-container);
     margin-top: 0;
@@ -61,12 +59,9 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+  }
 
-button {
+  button {
     display: none;
     background: none;
     border: none;
@@ -74,32 +69,37 @@ button {
     cursor: pointer;
     color: var(--on-primary-container);
     padding: 0.5rem;
-}
+  }
 
-@media (max-width: 900px) {
+  @media (max-width: 900px) {
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     ul {
-        flex-direction: column;
-        align-items: start;
+      flex-direction: column;
+      align-items: start;
     }
 
     button {
-        display: block;
+      display: block;
     }
 
     ul:not(.open) li:not(.active) {
-        /* display: none; */
-        height: 0;
-        padding: 0;
-        margin: 0;
-        border: none;
-        clip: auto;
-        opacity: 0;
+      /* display: none; */
+      height: 0;
+      padding: 0;
+      margin: 0;
+      border: none;
+      clip: auto;
+      opacity: 0;
     }
-    
+
     nav:has(ul.open) {
-        align-items: end;
+      align-items: end;
     }
-}
+  }
 
   ul {
     display: flex;
@@ -107,7 +107,7 @@ button {
     list-style: none;
     padding: 0;
     margin: 0;
-    padding: .7rem;
+    padding: 0.7rem;
   }
 
   li {
@@ -129,11 +129,13 @@ button {
     border: 1px solid transparent; */
     background-color: var(--primary-container-variant);
     /* box-shadow: 0 0 1rem var(--primary), 0 0 .5rem var(--primary); */
-    text-shadow: 0 0 1rem var(--primary), 0 0 .5rem var(--primary), 0 0 1.5rem var(--primary);
+    text-shadow:
+      0 0 1rem var(--primary),
+      0 0 0.5rem var(--primary),
+      0 0 1.5rem var(--primary);
   }
 
   li:hover:not(.active) {
     text-shadow: 0 0 3rem var(--on-primary);
   }
-
 </style>
