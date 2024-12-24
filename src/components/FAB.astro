@@ -1,0 +1,33 @@
+---
+const { title, href } = Astro.props;
+---
+
+<a id="fab" href={href}>
+  {title}
+</a>
+
+<style>
+  #fab {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 1rem;
+    border-radius: 9999px;
+    background-color: var(--secondary-container-bright);
+    color: var(--on-secondary-container-bright);
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 0 20px var(--secondary-container-bright);
+    font-size: large;
+  }
+
+  #fab:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1), 0 0 10px white inset;
+  }
+
+  #fab:active {
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 1);
+  }
+</style>

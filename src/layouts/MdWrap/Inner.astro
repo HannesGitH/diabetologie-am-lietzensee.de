@@ -1,0 +1,24 @@
+---
+const fab = Astro.props.fab ?? Astro.props.frontmatter?.fab;
+import FAB from "../../components/FAB.astro";
+---
+
+<div>
+  <section>
+    <slot />
+  </section>
+</div>
+{fab && <FAB title={fab.text} href={fab.action} />}
+
+<style>
+  section {
+    padding: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  div {
+    width: 100%;
+    backdrop-filter: blur(60px);
+  }
+</style>

@@ -2,10 +2,18 @@ html {
     --primary: #5200ce;
     --on-primary: #fff;
     --primary-container: #160d22;
+    --primary-container-half: #160d2280;
     --primary-container-variant: #261244;
     --on-primary-container: #fff;
     --primary-canvas: #100a17;
     --primary-text: #fff;
+
+    --secondary: #37c27a;
+    --on-secondary: #121813;
+    --secondary-container: #274138;
+    --on-secondary-container: #fff;
+    --secondary-container-bright: #53db8e;
+    --on-secondary-container-bright: #121813;
 
     font-family: "Oswald", serif;
     font-optical-sizing: auto;

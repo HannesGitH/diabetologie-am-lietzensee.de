@@ -55,8 +55,9 @@ const links = [
     height: 3.5rem;
   }
   nav {
-    background-color: var(--primary-container);
+    background-color: var(--primary-container-half);
     color: var(--on-primary-container);
+    backdrop-filter: blur(40px);
     margin-top: 0;
     padding-top: 0;
     font-size: large;
@@ -135,12 +136,14 @@ const links = [
 			linear-gradient(66.77deg, var(--primary), var(--primary)) padding-box,
 			linear-gradient(155deg, #6733d8 0%, #6141ff 18%, var(--primary-container) 45%) border-box;
     border: 1px solid transparent; */
-    background-color: var(--primary-container-variant);
+    /* background-color: var(--secondary-container); */
+    /* color: var(--on-secondary-container); */
     /* box-shadow: 0 0 1rem var(--primary), 0 0 .5rem var(--primary); */
-    text-shadow:
-      0 0 1rem var(--primary),
-      0 0 0.5rem var(--primary),
-      0 0 1.5rem var(--primary);
+    /* text-shadow:
+      0 0 .5rem var(--secondary),
+      0 0 1rem var(--secondary),
+      0 0 1.5rem var(--secondary); */
+    border: 1px solid var(--on-primary);
   }
 
   li:hover:not(.active) {

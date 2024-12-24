@@ -2,6 +2,7 @@
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import background from "../assets/background.svg";
+import introBanner from "../assets/introBanner.jpg";
 import "../styles/global.css";
 ---
 
@@ -22,6 +23,7 @@ import "../styles/global.css";
   </head>
   <body>
     <Navbar />
+	<img id="introBanner" src={introBanner.src} />
     <div id="content">
       <img id="background" />
       <slot />
@@ -31,6 +33,13 @@ import "../styles/global.css";
 </html>
 
 <style>
+
+  #introBanner {
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
+  }
+
   #background {
     position: fixed;
     background-color: var(--primary-canvas);
@@ -46,7 +55,9 @@ import "../styles/global.css";
     /* filter: blur(10px); */
   }
   #content {
-    min-height: 100vh;
+    /* min-height: 100vh; */
+	top: -5px;
+	position: relative;
   }
   html,
   body {

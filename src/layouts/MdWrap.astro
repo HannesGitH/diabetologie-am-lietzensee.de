@@ -1,35 +1,21 @@
 ---
 import Layout from "./Layout.astro";
+import Inner from "./MdWrap/inner.astro";
 const { withoutLayout } = Astro.props;
+const fab = Astro.props.fab ?? Astro.props.frontmatter?.fab;
+console.log(fab);
 ---
 
 {
   !withoutLayout ? (
     <Layout>
-      <div>
-        <section>
-          <slot />
-        </section>
-      </div>
+      <Inner fab={fab}>
+        <slot />
+      </Inner>
     </Layout>
   ) : (
-    <div>
-      <section>
-        <slot />
-      </section>
-    </div>
+    <Inner fab={fab}>
+      <slot />
+    </Inner>
   )
 }
-
-<style>
-  section {
-    padding: 1rem;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  div {
-    width: 100%;
-    backdrop-filter: blur(60px);
-  }
-</style>
