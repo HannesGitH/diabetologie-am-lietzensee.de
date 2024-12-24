@@ -27,14 +27,15 @@ const links = [
         -->
     {
       links.map((link) => (
-        <li class:list={[{ active: link.isActive }]}>
-          <a href={link.href}>{link.text}</a>
-        </li>
+        <a href={link.href}>
+          <li class:list={[{ active: link.isActive }]}>{link.text}</li>
+        </a>
       ))
     }
   </ul>
   <button aria-label="Toggle Menu">☰</button>
 </nav>
+<ghost />
 
 <script>
   const nav = document.querySelector("nav")!;
@@ -48,16 +49,23 @@ const links = [
 </script>
 
 <style>
+
+  ghost {
+    display: block;
+    height: 3.5rem;
+  }
   nav {
     background-color: var(--primary-container);
     color: var(--on-primary-container);
     margin-top: 0;
     padding-top: 0;
-    font-size: x-large;
+    font-size: large;
     font-weight: 600;
     clip: auto;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
   }
 
@@ -69,6 +77,12 @@ const links = [
     cursor: pointer;
     color: var(--on-primary-container);
     padding: 0.5rem;
+  }
+
+  li {
+    transition: all 0.3s;
+    padding: 0.5rem 1.5rem;
+    padding-top: 0.4rem;
   }
 
   @media (max-width: 900px) {
@@ -108,12 +122,6 @@ const links = [
     padding: 0;
     margin: 0;
     padding: 0.7rem;
-  }
-
-  li {
-    transition: all 0.3s;
-    padding: 0.5rem 1.5rem;
-    padding-top: 0.4rem;
   }
 
   a {

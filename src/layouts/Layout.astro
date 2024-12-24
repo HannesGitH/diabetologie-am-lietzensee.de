@@ -1,5 +1,8 @@
 ---
 import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import background from "../assets/background.svg";
+import "../styles/global.css";
 ---
 
 <!doctype html>
@@ -19,15 +22,36 @@ import Navbar from "../components/Navbar.astro";
   </head>
   <body>
     <Navbar />
-    <slot />
+    <div id="content">
+      <img id="background" src={background.src} alt="" fetchpriority="high" />
+      <slot />
+    </div>
+    <Footer />
   </body>
 </html>
 
 <style>
+  #background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(100px);
+  }
+  #content {
+    min-height: 100vh;
+  }
   html,
   body {
     margin: 0;
     width: 100%;
+    /* background-color: var(--primary-canvas); */
+    color: var(--primary-text);
     /* height: 100%; */
+  }
+  html {
+    background-color: var(--primary-canvas);
   }
 </style>
