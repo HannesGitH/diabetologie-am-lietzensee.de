@@ -1,17 +1,35 @@
 ---
 import Layout from "./Layout.astro";
+const { withoutLayout } = Astro.props;
 ---
 
-<Layout>
-    <section>
+{
+  !withoutLayout ? (
+    <Layout>
+      <div>
+        <section>
+          <slot />
+        </section>
+      </div>
+    </Layout>
+  ) : (
+    <div>
+      <section>
         <slot />
-    </section>
-</Layout>
+      </section>
+    </div>
+  )
+}
 
 <style>
-    section {
-        padding: 1rem;
-        max-width: 800px;
-        margin: 0 auto;
-    }
+  section {
+    padding: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  div {
+    width: 100%;
+    backdrop-filter: blur(60px);
+  }
 </style>

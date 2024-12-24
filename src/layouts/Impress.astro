@@ -1,0 +1,12 @@
+---
+import MdWrap from "./MdWrap.astro";
+import ImpressC from "../components/Impress.astro";
+import Layout from "./Layout.astro";
+---
+
+<Layout>
+  <ImpressC />
+  <MdWrap withoutLayout>
+    <slot />
+  </MdWrap>
+</Layout>

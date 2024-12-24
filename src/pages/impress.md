@@ -1,5 +1,5 @@
 ---
-layout: '../layouts/MdWrap.astro'
+layout: '../layouts/Impress.astro'
 ---
 
 

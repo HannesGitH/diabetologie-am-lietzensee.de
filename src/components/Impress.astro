@@ -1,0 +1,58 @@
+---
+import Card from "./Card.astro";
+
+const items = await Astro.glob("./impress/*.md");
+---
+
+<style>
+  .card-container-outer {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .card-container-inner {
+    display: flex;
+    overflow-x: scroll;
+    padding: 1rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-items: stretch;
+    justify-content: stretch;
+    align-items: stretch;
+  }
+
+  .card-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    width: 400px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card :global(.card) {
+    flex: 1 1 auto;
+  }
+
+  a, .card :global(a) {
+    color: var(--on-primary-container);
+    text-decoration: none;
+  }
+</style>
+
+<div class="card-container-outer">
+  <div class="card-container-inner">
+    {
+      items.map((item) => (
+        <div class="card">
+          <Card>
+            <item.Content />
+          </Card>
+        </div>
+      ))
+    }
+  </div>
+</div>

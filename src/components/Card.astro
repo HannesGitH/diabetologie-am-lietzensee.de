@@ -1,0 +1,19 @@
+---
+// const { title, content } = Astro.props;
+---
+
+<div class="card">
+    <slot></slot>
+</div>
+
+<style>
+    .card {
+        /* border:1px solid rgba(209, 227, 251, 0.405); */
+        border-radius: 1.5rem;
+        padding: 16px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+        /* background-color: var(--primary-container); */
+        /* opacity: 0.6; */
+        backdrop-filter: blur(200px);
+    }
+</style>
