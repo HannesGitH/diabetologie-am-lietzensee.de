@@ -4,6 +4,7 @@ import Footer from "../components/Footer.astro";
 import background from "../assets/background.svg";
 import introBanner from "../assets/introBanner.jpg";
 import "../styles/global.css";
+const { noHeader } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,7 +24,7 @@ import "../styles/global.css";
   </head>
   <body>
     <Navbar />
-	<img id="introBanner" src={introBanner.src} />
+	{!noHeader && <img id="introBanner" src={introBanner.src} />}
     <div id="content">
       <img id="background" />
       <slot />
