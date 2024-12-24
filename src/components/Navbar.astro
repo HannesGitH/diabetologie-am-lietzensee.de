@@ -14,7 +14,7 @@ const links = [
   { href: "/services", text: "Leistungen" },
   { href: "/impress", text: "Impressum" },
 ].map((link) => {
-  const isActive = currentPath === link.href;
+  const isActive = currentPath.startsWith(link.href);
   return { ...link, isActive };
 });
 ---
