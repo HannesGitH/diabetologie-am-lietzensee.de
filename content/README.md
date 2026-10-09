@@ -100,8 +100,9 @@ Sprachen.
 Nur in `de/notice.md` – die Einstellungen gelten für alle Sprachen:
 
 - `show: true` → sichtbar, `show: false` → ausgeblendet
-- `until: 2026-12-31` → wird nach diesem Tag automatisch ausgeblendet (die Website wird
-  jede Nacht automatisch neu gebaut, der Hinweis verschwindet also spätestens am Folgetag)
+- `until: 2026-12-31` → wird nach diesem Tag ausgeblendet, sobald die Website das nächste
+  Mal veröffentlicht wird (also bei der nächsten gespeicherten Änderung). Soll der Hinweis
+  genau an einem bestimmten Tag verschwinden, an diesem Tag `show: false` setzen.
 - `tone: warning` → auffälligere Farbe, z. B. bei Praxisschließung
 - `stand: 2026-10-09` → Datum der letzten Textänderung. Bei jeder Textänderung auf das
   heutige Datum setzen.
@@ -160,8 +161,7 @@ pnpm build     # erzeugt die fertige Website im Ordner build/
 Die Vorschau auf dem eigenen Rechner ist optional. Zum Veröffentlichen genügt es, die
 Änderung auf GitHub im Zweig `main` zu speichern: Die Website wird dann **automatisch geprüft,
 gebaut und veröffentlicht** (Fortschritt im Reiter „Actions“ auf GitHub, Dauer ca. 1–2
-Minuten). Zusätzlich wird sie jede Nacht neu gebaut, damit z. B. abgelaufene Hinweise
-verschwinden.
+Minuten).
 
 Enthält eine Datei einen Fehler (z. B. ein fehlendes Pflichtfeld oder ein falsch geschriebenes
 Datum), wird **nichts veröffentlicht** – die bisherige Website bleibt online. Unter „Actions“
@@ -184,5 +184,5 @@ validated at build time with German error messages. UI labels live in
 `messages/*.json`. Images go into `src/lib/assets/images/` and are referenced by file name.
 Files marked `translated: false` are German placeholders. Preview with `pnpm dev` (optional).
 Every push to `main` is automatically checked, built and deployed to GitHub Pages
-(`.github/workflows/deploy.yml`), plus a nightly rebuild so `until` dates take effect. If
+(`.github/workflows/deploy.yml`); an expired `until` date takes effect on the next deploy. If
 validation fails, nothing is deployed and the live site stays unchanged.
