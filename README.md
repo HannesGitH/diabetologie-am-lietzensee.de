@@ -1,54 +1,38 @@
-# sv
+# diabetologie-am-lietzensee.de
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Static, multilingual (de / en / ru) website of the diabetology practice
+Dr. med. Regina Nadolny, Berlin-Charlottenburg.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
+- **Content editors:** see [`content/README.md`](content/README.md).
+- Stack: SvelteKit 3 (Svelte 5, fully prerendered, `csr = false` → zero client JS),
+  paraglide-js 2 (URL strategy: German at `/`, English `/en/…`, Russian `/ru/…`),
+  @sveltejs/enhanced-img, adapter-static.
 
 ```sh
-# recreate this project
-pnpm dlx sv@1.1.1 create --template minimal --types ts --add prettier eslint vitest="usages:unit,component" playwright="demo:no" enhanced-img sveltekit-adapter="adapter:static" mdsvex paraglide="languageTags:de, en, ru+demo:no" ai-tools="ide:claude-code+delivery:plugin" experimental="features:async,remoteFunctions" --install pnpm .
+pnpm install
+pnpm dev          # development server
+pnpm check        # svelte-check
+pnpm lint         # prettier + eslint
+pnpm test:unit -- --run
+pnpm test:e2e     # builds, previews and runs Playwright + axe accessibility checks
+pnpm build        # static site in build/
 ```
 
-## Adding features
+## Deployment
 
-Add features to your project with `sv add`:
+Upload the contents of `build/` to any static web host. Every page is a folder with an
+`index.html` (`/kontakt/` → `kontakt/index.html`). `404.html` is the not-found page (Apache:
+`ErrorDocument 404 /404.html`). Old URLs such as `/kontakt.html` redirect to the new pages.
 
-```sh
-npx sv add
+## Structure
+
 ```
-
-For example, to add Tailwind CSS:
-
-```sh
-npx sv add tailwindcss
+content/                 editable content (Markdown + YAML)
+messages/                UI strings per language (paraglide)
+src/app.css              design tokens + base styles
+src/lib/server/content.ts  build-time content loader (marked + yaml)
+src/lib/images.ts        enhanced-img lookup by file name
+src/lib/components/      Header, Footer, OpeningHours, NoticeBanner, …
+src/routes/              pages, sitemap.xml, legacy redirects
+e2e/                     Playwright tests
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.

@@ -1,10 +1,10 @@
 import { paraglideVitePlugin } from '@inlang/paraglide-js';
-import { mdsvex } from 'mdsvex';
 import { enhancedImages } from '@sveltejs/enhanced-img';
 import { defineConfig } from 'vitest/config';
-import { playwright } from '@vitest/browser-playwright';
 import adapter from '@sveltejs/adapter-static';
 import { sveltekit } from '@sveltejs/kit/vite';
+
+import { SITE_ORIGIN } from './src/lib/origin.ts';
 
 export default defineConfig({
 	plugins: [
@@ -16,44 +16,31 @@ export default defineConfig({
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
 				experimental: { async: true }
 			},
-			adapter: adapter(),
-			preprocess: [mdsvex({ extensions: ['.svx', '.md'] })],
-			extensions: ['.svelte', '.svx', '.md'],
-			experimental: { remoteFunctions: true }
+			// Plain folder of static files (build/), deployable to any static host.
+			adapter: adapter({ pages: 'build', assets: 'build', strict: true }),
+			// Root-relative asset URLs so 404.html works at any depth.
+			paths: { origin: SITE_ORIGIN, relative: false },
+			// Inline the (small) CSS into every page: no render-blocking requests.
+			inlineStyleThreshold: Infinity,
+			prerender: {
+				// Crawl from every locale root; the header / footer / language switcher link to all pages.
+				entries: ['*', '/en', '/ru', '/404', '/en/404', '/ru/404', '/sitemap.xml']
+			}
 		}),
 
 		paraglideVitePlugin({
 			project: './project.inlang',
 			outdir: './src/lib/paraglide',
-			emitTsDeclarations: true
+			emitTsDeclarations: true,
+			// German lives at the root (/kontakt), English under /en/…, Russian under /ru/…
+			strategy: ['url', 'baseLocale'],
+			// Every page is emitted as folder/index.html, which works on any static host.
+			trailingSlash: 'always'
 		})
 	],
 	test: {
 		expect: { requireAssertions: true },
-		projects: [
-			{
-				extends: './vite.config.ts',
-				test: {
-					name: 'client',
-					browser: {
-						enabled: true,
-						provider: playwright(),
-						instances: [{ browser: 'chromium', headless: true }]
-					},
-					include: ['src/**/*.svelte.{test,spec}.{js,ts}'],
-					exclude: ['src/lib/server/**']
-				}
-			},
-
-			{
-				extends: './vite.config.ts',
-				test: {
-					name: 'server',
-					environment: 'node',
-					include: ['src/**/*.{test,spec}.{js,ts}'],
-					exclude: ['src/**/*.svelte.{test,spec}.{js,ts}']
-				}
-			}
-		]
+		include: ['src/**/*.{test,spec}.{js,ts}'],
+		environment: 'node'
 	}
 });

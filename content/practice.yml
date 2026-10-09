@@ -1,0 +1,104 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Praxisdaten – gelten für ALLE Sprachen (Deutsch, Englisch, Russisch).
+# Practice facts – shared by ALL languages.
+#
+# Hinweise zum Bearbeiten:
+#  - Einrückung (Leerzeichen am Zeilenanfang) beibehalten, keine Tabulatoren.
+#  - Texte mit Doppelpunkt oder Sonderzeichen in "Anführungszeichen" setzen.
+#  - Uhrzeiten immer als "HH:MM" schreiben, z. B. "09:00".
+# ─────────────────────────────────────────────────────────────────────────────
+
+name: Diabetologie am Lietzensee
+doctor: Dr. med. Regina Nadolny
+
+address:
+  street: Riehlstr. 7
+  postalCode: '14057'
+  city: Berlin
+  district: Charlottenburg
+  country: DE
+
+# Für die Kartenlinks (OpenStreetMap) und Suchmaschinen.
+geo:
+  lat: 52.5089
+  lng: 13.2859
+
+# display = so wird die Nummer angezeigt (deutsche Schreibweise mit Vorwahl, z. B. 030 3218153).
+#           Auf den englischen und russischen Seiten erscheint automatisch +49 30 3218153.
+# tel     = internationale Form für den Anruf-Link: mit + beginnen, keine Leerzeichen,
+#           IMMER in Anführungszeichen, z. B. '+49303218153'
+phones:
+  - display: 030 3218153
+    tel: '+49303218153'
+  - display: 030 3226177
+    tel: '+49303226177'
+
+fax:
+  display: 030 32602420
+  tel: '+493032602420'
+
+# purpose: general (allgemein) oder prescriptions (Rezepte) – steuert die Beschriftung
+emails:
+  - address: praxis@diabetologie-am-lietzensee.de
+    purpose: general
+  - address: rezepte@diabetologie-am-lietzensee.de
+    purpose: prescriptions
+
+# Online-Terminbuchung (Doctolib)
+bookingUrl: https://www.doctolib.de/praxis/riehlstr-7-14057-berlin/hausaerzte-am-lietzensee-und-diabetologie
+
+# ── Sprechzeiten ─────────────────────────────────────────────────────────────
+# Wochentage: mon, tue, wed, thu, fri (optional auch sat, sun)
+# Ein Tag ohne Sprechzeit kann einfach weggelassen werden.
+# note (optional): by_appointment  → „… und nach Vereinbarung“
+hours:
+  mon:
+    times:
+      - { from: '09:00', to: '12:30' }
+    note: by_appointment
+  tue:
+    times:
+      - { from: '09:00', to: '12:30' }
+      - { from: '14:30', to: '16:30' }
+  wed:
+    times:
+      - { from: '09:00', to: '12:30' }
+  thu:
+    times:
+      - { from: '10:00', to: '12:30' }
+      - { from: '14:30', to: '17:30' }
+  fri:
+    times:
+      - { from: '09:00', to: '12:30' }
+
+# ── Zertifizierungen (Logos auf der Startseite) ─────────────────────────────
+# image = Dateiname in src/lib/assets/images/certifications/
+# name  = Beschreibung (wird als Bildbeschreibung für Screenreader genutzt)
+certifications:
+  - image: ddg-diabeteszentrum.png
+    name:
+      de: Zertifiziertes Diabeteszentrum der Deutschen Diabetes Gesellschaft (DDG)
+      en: Certified Diabetes Centre of the German Diabetes Association (DDG)
+      ru: Сертифицированный диабетологический центр Немецкого диабетологического общества (DDG)
+  - image: ddg-fussbehandlung.png
+    name:
+      de: Zertifizierte Fußbehandlungseinrichtung der Deutschen Diabetes Gesellschaft (DDG)
+      en: Certified Foot Treatment Facility of the German Diabetes Association (DDG)
+      ru: Сертифицированное учреждение по лечению диабетической стопы Немецкого диабетологического общества (DDG)
+
+# Zeile ganz unten auf jeder Seite (das Jahr wird automatisch ergänzt)
+copyright: Dr. med. Regina Nadolny
+photoCredit: © Stauke - Fotolia.com
+
+# ── Bilder auf der Startseite ───────────────────────────────────────────────
+# hero        = großes Bild oben (auch Vorschaubild beim Teilen in Messengern/sozialen Medien)
+# impressions = Bildleiste unter „Leistungsspektrum / Unser Team“ (3 auf dem Handy, 5 ab Tablet)
+# Dateinamen in src/lib/assets/images/ (mit Unterordner)
+images:
+  hero: practice/sprechzimmer.jpg
+  impressions:
+    - impressions/erdbeere.jpg
+    - impressions/labor.jpg
+    - impressions/team.jpg
+    - impressions/stethoskop.jpg
+    - impressions/behandlungsraum.jpg

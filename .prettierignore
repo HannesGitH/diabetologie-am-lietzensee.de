@@ -7,3 +7,6 @@ bun.lockb
 
 # Miscellaneous
 /static/
+
+# Editor-maintained content (non-technical edits must not fail lint)
+/content/

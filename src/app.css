@@ -1,0 +1,457 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   Diabetologie am Lietzensee — design tokens & base styles
+   Calm, clinical, friendly. System fonts, no frameworks, no client JS.
+   All text/background pairs meet WCAG 2.2 AA (≥ 4.5:1), in light and dark.
+   ────────────────────────────────────────────────────────────────────────── */
+
+:root {
+	color-scheme: light dark;
+
+	/* Brand greens (from the original site: #A6F78C, #D4F8C9, #E8FAE2, #5B7F4F) */
+	--green-50: #f3fbef;
+	--green-100: #e8fae2;
+	--green-200: #d4f8c9;
+	--green-300: #a6f78c;
+	--green-600: #5b7f4f;
+	--green-700: #4a6b3f;
+	--green-800: #3d5c34;
+	--green-900: #2b4425;
+
+	/* Semantic tokens — light */
+	--color-bg: #ffffff;
+	--color-surface: #ffffff;
+	--color-tint: var(--green-50);
+	--color-tint-strong: var(--green-100);
+	--color-highlight: var(--green-200);
+	--color-text: #1f2a1f;
+	--color-heading: #18241a;
+	--color-muted: #56604f;
+	--color-border: #dce6d7;
+	--color-border-strong: #c3d3bc;
+	--color-accent: var(--green-700);
+	--color-accent-hover: var(--green-800);
+	--color-accent-text: var(--green-800);
+	--color-on-accent: #ffffff;
+	--color-decor: var(--green-600);
+	--color-focus: #1d4ed8;
+	--color-warning-bg: #fff4d6;
+	--color-warning-border: #e9cb7a;
+	--color-warning-text: #6b4a00;
+	--shadow-sm: 0 1px 2px rgb(31 42 31 / 0.06);
+	--shadow-md: 0 6px 24px -12px rgb(31 42 31 / 0.18);
+
+	/* Typography — zero font bytes, native Cyrillic */
+	--font-sans:
+		system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+	--text-sm: 0.9375rem;
+	--text-base: 1.0625rem;
+	--text-lg: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+	--text-xl: clamp(1.25rem, 1.12rem + 0.6vw, 1.5rem);
+	--text-2xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+	--text-3xl: clamp(1.875rem, 1.5rem + 1.8vw, 2.875rem);
+	--leading: 1.6;
+	--leading-tight: 1.2;
+	--measure: 68ch;
+
+	/* Spacing & shape */
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-5: 1.5rem;
+	--space-6: 2rem;
+	--space-7: 3rem;
+	--space-8: clamp(3rem, 2rem + 4vw, 5.5rem);
+	--radius-sm: 6px;
+	--radius: 10px;
+	--radius-lg: 14px;
+	--container: 72rem;
+	--gutter: clamp(1rem, 0.6rem + 2vw, 2rem);
+	--header-h: 4.25rem;
+}
+
+/* Dark theme: same tokens, deep green-grey surfaces, light green accents */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-bg: #121a13;
+		--color-surface: #18221a;
+		--color-tint: #1b261c;
+		--color-tint-strong: #22301f;
+		--color-highlight: #2a3b27;
+		--color-text: #e4ede1;
+		--color-heading: #f1f7ee;
+		--color-muted: #b3c4ae;
+		--color-border: #2c3a2c;
+		--color-border-strong: #3d4f3b;
+		--color-accent: var(--green-300);
+		--color-accent-hover: #c4fab0;
+		--color-accent-text: var(--green-300);
+		--color-on-accent: #10200c;
+		--color-decor: var(--green-300);
+		--color-focus: #8ab4ff;
+		--color-warning-bg: #2a2416;
+		--color-warning-border: #6b5622;
+		--color-warning-text: #f2c66d;
+		--shadow-sm: none;
+		--shadow-md: none;
+	}
+}
+
+/* ── Reset / base ──────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	/* The sticky header is --header-h tall, more when text wraps or is enlarged: keep a margin. */
+	scroll-padding-top: calc(var(--header-h) + 2rem);
+	hanging-punctuation: first last;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	min-height: 100dvh;
+	display: flex;
+	flex-direction: column;
+	background: var(--color-bg);
+	color: var(--color-text);
+	font-family: var(--font-sans);
+	font-size: var(--text-base);
+	line-height: var(--leading);
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	overflow-wrap: break-word;
+}
+
+main {
+	flex: 1;
+}
+
+/*
+ * No-JS mobile menu (Header.svelte): while it is open, hide the page behind it. The menu panel
+ * then is the only content, so Tab can never move focus to something covered by the panel.
+ */
+@media (max-width: 63.99rem) {
+	body:has(.nav-mobile[open]) :is(#main, .site-footer) {
+		display: none;
+	}
+}
+
+h1,
+h2,
+h3,
+h4 {
+	color: var(--color-heading);
+	line-height: var(--leading-tight);
+	font-weight: 650;
+	letter-spacing: -0.012em;
+	margin: 0 0 var(--space-4);
+	text-wrap: balance;
+}
+
+h1 {
+	font-size: var(--text-3xl);
+	letter-spacing: -0.02em;
+}
+h2 {
+	font-size: var(--text-2xl);
+}
+h3 {
+	font-size: var(--text-xl);
+}
+h4 {
+	font-size: var(--text-lg);
+}
+
+p,
+ul,
+ol,
+dl,
+table,
+figure,
+blockquote {
+	margin: 0 0 var(--space-4);
+}
+
+p {
+	text-wrap: pretty;
+}
+
+img,
+picture,
+svg {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	color: var(--color-accent-text);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.18em;
+}
+
+a:hover {
+	color: var(--color-accent-hover);
+	text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+	outline: 3px solid var(--color-focus);
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+strong,
+b {
+	font-weight: 650;
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid var(--color-border);
+	margin: var(--space-6) 0;
+}
+
+::selection {
+	background: var(--green-200);
+	color: #10200c;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* ── Utilities ─────────────────────────────────────────────────────────── */
+
+.container {
+	width: 100%;
+	max-width: calc(var(--container) + 2 * var(--gutter));
+	margin-inline: auto;
+	padding-inline: var(--gutter);
+}
+
+.visually-hidden {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
+.section {
+	padding-block: var(--space-8);
+}
+
+.section-tint {
+	background: var(--color-tint);
+	border-block: 1px solid var(--color-border);
+}
+
+.eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	margin: 0 0 var(--space-3);
+	font-size: var(--text-sm);
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--color-accent-text);
+}
+
+.lead {
+	font-size: var(--text-lg);
+	color: var(--color-muted);
+	max-width: var(--measure);
+}
+
+.muted {
+	color: var(--color-muted);
+}
+
+.card {
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+}
+
+/* ── Buttons ───────────────────────────────────────────────────────────── */
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2);
+	min-height: 2.75rem;
+	padding: 0.625rem 1.125rem;
+	border: 1px solid transparent;
+	border-radius: var(--radius);
+	font: inherit;
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	cursor: pointer;
+	transition:
+		background-color 0.15s ease,
+		border-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.btn svg {
+	flex: none;
+}
+
+.btn-primary {
+	background: var(--color-accent);
+	color: var(--color-on-accent);
+}
+
+.btn-primary:hover {
+	background: var(--color-accent-hover);
+	color: var(--color-on-accent);
+	text-decoration: none;
+}
+
+.btn-secondary {
+	background: var(--color-surface);
+	color: var(--color-accent-text);
+	border-color: var(--color-border-strong);
+}
+
+.btn-secondary:hover {
+	background: var(--color-tint);
+	border-color: var(--color-accent);
+	color: var(--color-accent-hover);
+	text-decoration: none;
+}
+
+.btn-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+}
+
+/* Arrow text link */
+.link-arrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	min-height: 2.75rem;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.link-arrow:hover {
+	text-decoration: underline;
+}
+
+/* ── Prose (rendered Markdown) ─────────────────────────────────────────── */
+
+.prose {
+	max-width: var(--measure);
+}
+
+.prose h2 {
+	font-size: var(--text-xl);
+	margin-top: var(--space-7);
+	padding-top: var(--space-5);
+	border-top: 1px solid var(--color-border);
+}
+
+.prose h3 {
+	font-size: var(--text-lg);
+	margin-top: var(--space-6);
+}
+
+.prose > :first-child {
+	margin-top: 0;
+	padding-top: 0;
+	border-top: 0;
+}
+
+.prose ul,
+.prose ol {
+	padding-left: 1.25em;
+}
+
+.prose li + li {
+	margin-top: var(--space-1);
+}
+
+.prose li::marker {
+	color: var(--color-decor);
+}
+
+.prose a {
+	overflow-wrap: anywhere;
+}
+
+/* External-link arrow of <ExternalLink> (buttons and .link-arrow already space their icons) */
+a:not(.btn, .link-arrow) > .ext-icon {
+	margin-left: 0.25em;
+	vertical-align: baseline;
+}
+
+/* External-link marker for links rendered from Markdown */
+a.external::after {
+	content: '';
+	display: inline-block;
+	width: 0.7em;
+	height: 0.7em;
+	margin-left: 0.25em;
+	background-color: currentColor;
+	-webkit-mask: var(--icon-external) no-repeat center / contain;
+	mask: var(--icon-external) no-repeat center / contain;
+}
+
+:root {
+	--icon-external: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4h6v6'/%3E%3Cpath d='M20 4l-9 9'/%3E%3Cpath d='M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5'/%3E%3C/svg%3E");
+}
+
+@media print {
+	.site-header,
+	.site-footer,
+	.skip-link {
+		display: none !important;
+	}
+	body {
+		color: #000;
+		background: #fff;
+	}
+}
+
+/* Language-appropriate quotation marks */
+:lang(de) {
+	quotes: '„' '“' '‚' '‘';
+}
+:lang(en) {
+	quotes: '“' '”' '‘' '’';
+}
+:lang(ru) {
+	quotes: '«' '»' '„' '“';
+}
