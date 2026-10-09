@@ -2,7 +2,11 @@
 
 Alle Texte der Website stehen in diesem Ordner `content/`. Sie brauchen dafür **keine
 Programmierkenntnisse** – nur einen einfachen Texteditor (z. B. VS Code, TextEdit im
-„Reiner Text“-Modus oder direkt im Browser auf GitHub/GitLab).
+„Reiner Text“-Modus oder direkt im Browser auf GitHub).
+
+**Änderungen gehen automatisch online:** Sobald eine Änderung auf GitHub im Zweig `main`
+gespeichert ist („Commit changes“), wird die Website automatisch geprüft, neu gebaut und
+veröffentlicht – nach etwa 1–2 Minuten ist sie live. Hochladen ist nicht nötig.
 
 ## Welche Datei steuert was?
 
@@ -96,8 +100,8 @@ Sprachen.
 Nur in `de/notice.md` – die Einstellungen gelten für alle Sprachen:
 
 - `show: true` → sichtbar, `show: false` → ausgeblendet
-- `until: 2026-12-31` → wird nach diesem Tag automatisch ausgeblendet (beim nächsten
-  Veröffentlichen)
+- `until: 2026-12-31` → wird nach diesem Tag automatisch ausgeblendet (die Website wird
+  jede Nacht automatisch neu gebaut, der Hinweis verschwindet also spätestens am Folgetag)
 - `tone: warning` → auffälligere Farbe, z. B. bei Praxisschließung
 - `stand: 2026-10-09` → Datum der letzten Textänderung. Bei jeder Textänderung auf das
   heutige Datum setzen.
@@ -153,10 +157,16 @@ pnpm dev       # Vorschau unter http://localhost:5173 – Änderungen erscheinen
 pnpm build     # erzeugt die fertige Website im Ordner build/
 ```
 
-Nach jeder Änderung muss die Website **neu gebaut und hochgeladen** werden (Inhalt des
-Ordners `build/` auf den Webserver kopieren). Enthält eine Datei einen Fehler (z. B. ein
-fehlendes Pflichtfeld oder ein falsch geschriebenes Datum), bricht `pnpm build` mit einer
-deutschen Fehlermeldung ab, die Datei und Problem nennt.
+Die Vorschau auf dem eigenen Rechner ist optional. Zum Veröffentlichen genügt es, die
+Änderung auf GitHub im Zweig `main` zu speichern: Die Website wird dann **automatisch geprüft,
+gebaut und veröffentlicht** (Fortschritt im Reiter „Actions“ auf GitHub, Dauer ca. 1–2
+Minuten). Zusätzlich wird sie jede Nacht neu gebaut, damit z. B. abgelaufene Hinweise
+verschwinden.
+
+Enthält eine Datei einen Fehler (z. B. ein fehlendes Pflichtfeld oder ein falsch geschriebenes
+Datum), wird **nichts veröffentlicht** – die bisherige Website bleibt online. Unter „Actions“
+erscheint dann ein rotes ✗; ein Klick darauf zeigt eine deutsche Fehlermeldung mit Datei und
+Problem. Fehler beheben, erneut speichern – fertig.
 
 ---
 
@@ -172,5 +182,7 @@ can be inserted anywhere with placeholders such as `{{telefon}}` or `{{adresse}}
 table above); German terms in en/ru text are wrapped in `<span lang="de">…</span>`. Content is
 validated at build time with German error messages. UI labels live in
 `messages/*.json`. Images go into `src/lib/assets/images/` and are referenced by file name.
-Files marked `translated: false` are German placeholders. Preview with `pnpm dev`; after edits
-run `pnpm build` and deploy the `build/` folder.
+Files marked `translated: false` are German placeholders. Preview with `pnpm dev` (optional).
+Every push to `main` is automatically checked, built and deployed to GitHub Pages
+(`.github/workflows/deploy.yml`), plus a nightly rebuild so `until` dates take effect. If
+validation fails, nothing is deployed and the live site stays unchanged.

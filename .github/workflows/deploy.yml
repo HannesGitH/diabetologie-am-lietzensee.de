@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    # Nightly rebuild so notices with an `until` date disappear without a push.
+    - cron: '17 3 * * *'
   workflow_dispatch:
 
 permissions:

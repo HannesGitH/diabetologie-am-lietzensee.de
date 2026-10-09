@@ -20,7 +20,13 @@ pnpm build        # static site in build/
 
 ## Deployment
 
-Upload the contents of `build/` to any static web host. Every page is a folder with an
+Deployment is automatic: every push to `main` (and a nightly scheduled run, so notice `until`
+dates take effect) runs `.github/workflows/deploy.yml`, which runs `pnpm check`, the unit tests
+and `pnpm build`, then publishes `build/` to GitHub Pages (custom domain from `static/CNAME`). A
+failing check blocks the deploy, so the live site stays unchanged.
+
+The output is plain static files and also works on any other static host: upload the contents of
+`build/`. Every page is a folder with an
 `index.html` (`/kontakt/` → `kontakt/index.html`). `404.html` is the not-found page (Apache:
 `ErrorDocument 404 /404.html`). Old URLs such as `/kontakt.html` redirect to the new pages.
 
